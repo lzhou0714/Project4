@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		968F6B0B27D409CB00DD9E0A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B0927D409CA00DD9E0A /* main.cpp */; };
+		968F6B1327D4108000DD9E0A /* AttributeTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B1127D4108000DD9E0A /* AttributeTranslator.cpp */; };
+		968F6B1627D4109700DD9E0A /* MemberDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B1427D4109700DD9E0A /* MemberDatabase.cpp */; };
+		968F6B1927D410CA00DD9E0A /* MatchMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B1727D410CA00DD9E0A /* MatchMaker.cpp */; };
+		968F6B1C27D410F100DD9E0A /* PersonProfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B1A27D410F100DD9E0A /* PersonProfile.cpp */; };
+		968F6B2027D4110900DD9E0A /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968F6B1E27D4110900DD9E0A /* utility.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +33,17 @@
 		968F6B0A27D409CB00DD9E0A /* provided.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = provided.h; sourceTree = "<group>"; };
 		968F6B0C27D409E200DD9E0A /* members.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = members.txt; sourceTree = "<group>"; };
 		968F6B0D27D409E300DD9E0A /* translator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = translator.txt; sourceTree = "<group>"; };
+		968F6B1127D4108000DD9E0A /* AttributeTranslator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AttributeTranslator.cpp; sourceTree = "<group>"; };
+		968F6B1227D4108000DD9E0A /* AttributeTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeTranslator.h; sourceTree = "<group>"; };
+		968F6B1427D4109700DD9E0A /* MemberDatabase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MemberDatabase.cpp; sourceTree = "<group>"; };
+		968F6B1527D4109700DD9E0A /* MemberDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemberDatabase.h; sourceTree = "<group>"; };
+		968F6B1727D410CA00DD9E0A /* MatchMaker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MatchMaker.cpp; sourceTree = "<group>"; };
+		968F6B1827D410CA00DD9E0A /* MatchMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchMaker.h; sourceTree = "<group>"; };
+		968F6B1A27D410F100DD9E0A /* PersonProfile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PersonProfile.cpp; sourceTree = "<group>"; };
+		968F6B1B27D410F100DD9E0A /* PersonProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonProfile.h; sourceTree = "<group>"; };
+		968F6B1D27D410FD00DD9E0A /* RadixTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadixTree.h; sourceTree = "<group>"; };
+		968F6B1E27D4110900DD9E0A /* utility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
+		968F6B1F27D4110900DD9E0A /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +80,17 @@
 				968F6B0A27D409CB00DD9E0A /* provided.h */,
 				968F6B0C27D409E200DD9E0A /* members.txt */,
 				968F6B0D27D409E300DD9E0A /* translator.txt */,
+				968F6B1127D4108000DD9E0A /* AttributeTranslator.cpp */,
+				968F6B1227D4108000DD9E0A /* AttributeTranslator.h */,
+				968F6B1427D4109700DD9E0A /* MemberDatabase.cpp */,
+				968F6B1527D4109700DD9E0A /* MemberDatabase.h */,
+				968F6B1727D410CA00DD9E0A /* MatchMaker.cpp */,
+				968F6B1827D410CA00DD9E0A /* MatchMaker.h */,
+				968F6B1A27D410F100DD9E0A /* PersonProfile.cpp */,
+				968F6B1B27D410F100DD9E0A /* PersonProfile.h */,
+				968F6B1D27D410FD00DD9E0A /* RadixTree.h */,
+				968F6B1E27D4110900DD9E0A /* utility.cpp */,
+				968F6B1F27D4110900DD9E0A /* utility.h */,
 			);
 			path = proj4;
 			sourceTree = "<group>";
@@ -125,6 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968F6B2027D4110900DD9E0A /* utility.cpp in Sources */,
+				968F6B1627D4109700DD9E0A /* MemberDatabase.cpp in Sources */,
+				968F6B1C27D410F100DD9E0A /* PersonProfile.cpp in Sources */,
+				968F6B1327D4108000DD9E0A /* AttributeTranslator.cpp in Sources */,
+				968F6B1927D410CA00DD9E0A /* MatchMaker.cpp in Sources */,
 				968F6B0B27D409CB00DD9E0A /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
