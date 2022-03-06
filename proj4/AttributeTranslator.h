@@ -18,10 +18,10 @@ using namespace std;
 class AttributeTranslator
 {
 public:
-    AttributeTranslator();
-    ~AttributeTranslator();
-    bool Load(string filename);
-    vector<AttValPair> FindCompatibleAttValPairs( const AttValPair& source) const;
+    AttributeTranslator() {};
+//    ~AttributeTranslator();
+    bool Load(string filename) {return false;};
+//    vector<AttValPair> FindCompatibleAttValPairs( const AttValPair& source) const;
 private:
     
     

@@ -9,7 +9,9 @@
 #define PersonProfile_h
 
 #include "provided.h"
+#include "RadixTree.h"
 #include <string>
+#include <set>
 #include <iostream>
 using namespace std;
 
@@ -24,14 +26,20 @@ using namespace std;
 class PersonProfile
 {
 public:
-    PersonProfile(string name, string email);
-    ~PersonProfile();
-    string GetName() const;
-    string GetEmail() const;
-    void AddAttValPair(const AttValPair& attval);
-    int GetNumAttValPairs() const;
+    PersonProfile(string name, string email): m_name(name),m_email(email), m_items(0){};
+//    ~PersonProfile();
+    string GetName() const {return m_name;};
+    string GetEmail() const {return m_email;};
+    int GetNumAttValPairs() const {return m_items;};
+
     bool GetAttVal(int attribute_num, AttValPair& attval) const;
+    void AddAttValPair(const AttValPair& attval);
 private:
+    string m_name;
+    string m_email;
+    int m_items;
+    
+    RadixTree<string> aVPairs;
     
 };
 

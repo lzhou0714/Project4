@@ -16,11 +16,11 @@
 using namespace std;
 class MatchMaker
 {
-    MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at);
-    ~MatchMaker();
-    vector<EmailCount> IdentifyRankedMatches(string email, int threshold) const;
-    
-    
+public:
+    MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at) {};
+//    ~MatchMaker();
+//    vector<EmailCount> IdentifyRankedMatches(string email, int threshold) const;
+
 };
 
 #endif /* MatchMaker_hpp */
