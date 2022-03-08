@@ -64,62 +64,80 @@ template <typename ValueType>
 inline
 void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
 {
+//new///////////////////////////////////////////////////////
+    
     Node* currNode = rootPtr;
     rootPtr->endOfString = false;
-    int currIndex = 0;
-    //if search returns true return immediately
-    while (currIndex<key.length())
+    int breakInd = 0;
+    std::string currkey = key;
+    char breakPoint = key[breakInd];
+    Node* currEdge =currNode->edges[breakPoint];
+
+    while (currkey.size()>0)
     {
-        char breakPoint = key[currIndex];
-        std::string currkey = key.substr(currIndex);
-        Node* currEdge =currNode->edges[breakPoint];
         if (currEdge == nullptr) //new word
         {
-            addNode(key.substr(currIndex,key.size()), new ValueType(value), currEdge);
+            addNode(currkey, new ValueType(value), currEdge);
             currNode->edges[breakPoint] = currEdge;
             break;
         }
         else
         {
-            int a = currEdge->k.size();
-            int b = currkey.size();
-            int breakInd  = firstDiff(currEdge->k,a,currkey);
-            if (breakInd>=a)
+            int edgeLen = currEdge->k.size();
+            int currKeyLen = currkey.size();
+            breakInd = firstDiff(currEdge->k, edgeLen, currkey);
+            //key shares prefix with current word at edge
+            //key ends on edge, if edge has value update, if not add value and indicated end of word
+            if (breakInd == currKeyLen && breakInd == edgeLen)
             {
-                if (a == b) //key ends on this node
+                if (currEdge->endOfString)
+                {
+                    delete currEdge->v;
+                }
+                else
                 {
                     currEdge->endOfString = true;
-                    currEdge->v = new ValueType(value);
-                    break;
                 }
-                currIndex += breakInd; //add edge to end of node
-                currNode = currNode->edges[breakPoint];
-                continue;
+                currEdge->v = new ValueType(value);
+                break;
             }
-            else //branches off
+            //existing word is the prefix of key, add remaining key to end of existing word
+            if (breakInd == edgeLen && breakInd < currKeyLen)
             {
-                std::string prevKey = currEdge->k;
-                Node* prefix;
-                
-                //prefix
-                if (breakInd==b) //b ==prefix
-                    addNode(prevKey.substr(0, breakInd), new ValueType(value),prefix);
-                else
-                    addNode(prevKey.substr(0, breakInd), nullptr,prefix);
-                currNode->edges[breakPoint] = prefix;
-                currNode = prefix;
-                
-                //add remaining of existing key
-                breakPoint = prevKey[breakInd];
-                currNode->edges[breakPoint] = currEdge;
-                currEdge->k = prevKey.substr(breakInd, prevKey.size());
-                //if the original string has no remaining substring after breaking off the prefix delete the node
-                currNode->edges[breakPoint] = currEdge;
-                if (breakInd<=b)
-                {
-                    currIndex += breakInd;
-                }
+                currNode = currEdge;
+                currEdge = currEdge->edges[currkey[breakInd]];
             }
+            if (breakInd != edgeLen)
+            {
+                std::string prevValAtEdge = currEdge->k;
+                Node* prefix;
+
+                //key is the prefix of word at edge, need to split into prefix and rest of preexisting word at edge
+                if (breakInd == currKeyLen)
+                {
+                    addNode(prevValAtEdge.substr(0, breakInd), new ValueType(value),prefix);
+                }
+                //key is longer than the shared prefix, needs to split into prefix and two other nodes, prefix is not a word
+                else
+                    addNode(prevValAtEdge.substr(0, breakInd), nullptr,prefix);
+                
+                currNode->edges[prefix->k[0]] = prefix;
+                //add remaining of preexisting word
+                currNode = prefix;
+                breakPoint = prevValAtEdge[breakInd];
+                currNode->edges[breakPoint] = currEdge; //link remaining of edge to prefix
+                currEdge->k = prevValAtEdge.substr(breakInd); //update previous val
+                
+                //add remaining key
+                if (breakInd<currKeyLen)
+                {
+                    breakPoint =currkey[breakInd];
+                    currEdge = currNode->edges[breakPoint];
+                }
+                else break;
+            }
+            breakPoint =currkey[breakInd];
+            currkey = currkey.substr(breakInd);
         }
     }
 }
@@ -129,27 +147,30 @@ inline
 ValueType* RadixTree<ValueType>:: search(std::string key) const
 {
     Node* currNode = rootPtr->edges[key[0]];
-    int currIndex = 0;
-    std::string currKey = key;
-    while (currKey.size()>0)
-    {
-        
-        if (currKey.size() < currNode->k.size())
-            break;
-        else if (currKey.size() == currNode->k.size() && currNode->endOfString ==true)
-            return currNode->v;
-        else
+        int currIndex = 0;
+        std::string currKey = key;
+        while (currKey.size()>0)
         {
-            currIndex = firstDiff(currKey, currKey.size(), currNode->k);
-            currKey = currKey.substr(currIndex,key.size());
+            
+            if (currKey.size() < currNode->k.size())
+                break;
+            
+            else if (currKey.size() == currNode->k.size() && currNode->endOfString ==true)
+                return currNode->v;
+            
+            else
+            {
+                currIndex = firstDiff(currKey, currKey.size(), currNode->k);
+                currKey = currKey.substr(currIndex);
 
-            char checkPoint = currKey[0];
-            currNode = currNode->edges[checkPoint];
+                char checkPoint = currKey[0];
+                currNode = currNode->edges[checkPoint];
+            }
+            
         }
         
-    }
+        return nullptr;
     
-    return nullptr;
 }
 
 template <typename ValueType>
