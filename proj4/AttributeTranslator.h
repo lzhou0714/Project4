@@ -1,29 +1,29 @@
+////
+////  AttributeTranslator.hpp
+////  proj4
+////
+////  Created by Lily Zhou on 3/5/22.
+////
 //
-//  AttributeTranslator.hpp
-//  proj4
+//#ifndef AttributeTranslator_h
+//#define AttributeTranslator_h
 //
-//  Created by Lily Zhou on 3/5/22.
+//#include <string>
+//#include <iostream>
+//#include <vector>
+//#include "provided.h"
 //
-
-#ifndef AttributeTranslator_h
-#define AttributeTranslator_h
-
-#include <string>
-#include <iostream>
-#include <vector>
-#include "provided.h"
-
-using namespace std;
-
-class AttributeTranslator
-{
-public:
-    AttributeTranslator() {};
-//    ~AttributeTranslator();
-    bool Load(string filename) {return false;};
-//    vector<AttValPair> FindCompatibleAttValPairs( const AttValPair& source) const;
-private:
-    
-    
-};
-#endif /* AttributeTranslator_hpp */
+//using namespace std;
+//
+//class AttributeTranslator
+//{
+//public:
+//    AttributeTranslator() {};
+////    ~AttributeTranslator();
+//    bool Load(string filename) {return false;};
+////    vector<AttValPair> FindCompatibleAttValPairs( const AttValPair& source) const;
+//private:
+//    
+//    
+//};
+//#endif /* AttributeTranslator_hpp */
