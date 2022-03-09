@@ -92,13 +92,13 @@ void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
             {
                 if (currEdge->endOfString)
                 {
-                    delete currEdge->v;
+                    *(currEdge->v) =  value;
                 }
                 else
                 {
                     currEdge->endOfString = true;
+                    currEdge->v = new ValueType(value);
                 }
-                currEdge->v = new ValueType(value);
                 break;
             }
             //existing word is the prefix of key, add remaining key to end of existing word
@@ -146,16 +146,19 @@ template <typename ValueType>
 inline
 ValueType* RadixTree<ValueType>:: search(std::string key) const
 {
+
     Node* currNode = rootPtr->edges[key[0]];
+    if (currNode == nullptr)
+        return nullptr;
         int currIndex = 0;
         std::string currKey = key;
         while (currKey.size()>0)
         {
             
-            if (currKey.size() < currNode->k.size())
+            if (currNode ==nullptr || currKey.size() < currNode->k.size())
                 break;
             
-            else if (currKey.size() == currNode->k.size() && currNode->endOfString ==true)
+            else if (currKey == currNode->k && currNode->endOfString ==true)
                 return currNode->v;
             
             else

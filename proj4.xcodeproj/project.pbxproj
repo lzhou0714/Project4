@@ -28,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		965CDCAC27D879490045F35A /* members2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = members2.txt; sourceTree = "<group>"; };
 		968F6AFF27D409B000DD9E0A /* proj4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = proj4; sourceTree = BUILT_PRODUCTS_DIR; };
 		968F6B0927D409CA00DD9E0A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../../Downloads/Unhinged/main.cpp; sourceTree = "<group>"; };
 		968F6B0A27D409CB00DD9E0A /* provided.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = provided.h; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 				968F6B1D27D410FD00DD9E0A /* RadixTree.h */,
 				968F6B0A27D409CB00DD9E0A /* provided.h */,
 				968F6B0C27D409E200DD9E0A /* members.txt */,
+				965CDCAC27D879490045F35A /* members2.txt */,
 				968F6B0D27D409E300DD9E0A /* translator.txt */,
 				968F6B1A27D410F100DD9E0A /* PersonProfile.cpp */,
 				968F6B1B27D410F100DD9E0A /* PersonProfile.h */,

@@ -27,7 +27,7 @@ class PersonProfile
 {
 public:
     PersonProfile(string name, string email): m_name(name),m_email(email), m_items(0){};
-//    ~PersonProfile() ;
+    ~PersonProfile() ;
     string GetName() const {return m_name;};
     string GetEmail() const {return m_email;};
     int GetNumAttValPairs() const {return m_items;};
@@ -39,7 +39,8 @@ private:
     string m_email;
     int m_items;
     
-    RadixTree<string> aVPairs;
+    RadixTree<set<string>> aVPairs;
+    vector<AttValPair> aVPairsSet;
     
 };
 
