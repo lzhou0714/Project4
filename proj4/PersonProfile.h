@@ -10,6 +10,7 @@
 
 #include "provided.h"
 #include "RadixTree.h"
+#include <vector>
 #include <string>
 #include <set>
 #include <iostream>

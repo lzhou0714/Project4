@@ -22,18 +22,24 @@ public:
 private:
     struct Node
     {
-        Node(std::string key, ValueType* val)
+
+        Node (std::string key, ValueType value)
         {
             k = key;
-            v = val;
+            v = value;
             endOfString = true;
             for (int i=0;i<128;i++)
-            {
                 edges[i] = nullptr;
-            }
+        }
+        Node(std::string key)
+        {
+            k = key;
+            endOfString = true;
+            for (int i=0;i<128;i++)
+                edges[i] = nullptr;
         }
         std::string k;
-        ValueType* v;
+        ValueType v;
         bool endOfString;
         Node* edges[128];
     };
@@ -42,14 +48,14 @@ private:
     
     void deletionHelper(Node* nodeptr);
     int firstDiff(std::string smallerStr, int a, std::string largerStr) const ;
-    void addNode(std::string key,  ValueType* value,Node*& target);
+//    void addNode(std::string key,  ValueType value,Node*& target);
 };
 
 template <typename ValueType>
 inline
 RadixTree<ValueType>:: RadixTree()
 {
-    rootPtr = new Node("",nullptr);
+    rootPtr = new Node("");
 }
 
 template <typename ValueType>
@@ -77,7 +83,7 @@ void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
     {
         if (currEdge == nullptr) //new word
         {
-            addNode(currkey, new ValueType(value), currEdge);
+            currEdge = new Node(currkey, value);
             currNode->edges[breakPoint] = currEdge;
             break;
         }
@@ -92,12 +98,12 @@ void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
             {
                 if (currEdge->endOfString)
                 {
-                    *(currEdge->v) =  value;
+                    currEdge->v =  value;
                 }
                 else
                 {
                     currEdge->endOfString = true;
-                    currEdge->v = new ValueType(value);
+                    currEdge->v = value;
                 }
                 break;
             }
@@ -115,11 +121,14 @@ void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
                 //key is the prefix of word at edge, need to split into prefix and rest of preexisting word at edge
                 if (breakInd == currKeyLen)
                 {
-                    addNode(prevValAtEdge.substr(0, breakInd), new ValueType(value),prefix);
+                    prefix = new Node(prevValAtEdge.substr(0, breakInd), value);
                 }
                 //key is longer than the shared prefix, needs to split into prefix and two other nodes, prefix is not a word
                 else
-                    addNode(prevValAtEdge.substr(0, breakInd), nullptr,prefix);
+                {
+                    prefix = new Node (prevValAtEdge.substr(0, breakInd));
+                    prefix->endOfString = false;
+                }
                 
                 currNode->edges[prefix->k[0]] = prefix;
                 //add remaining of preexisting word
@@ -159,7 +168,7 @@ ValueType* RadixTree<ValueType>:: search(std::string key) const
                 break;
             
             else if (currKey == currNode->k && currNode->endOfString ==true)
-                return currNode->v;
+                return &(currNode->v);
             
             else
             {
@@ -176,14 +185,14 @@ ValueType* RadixTree<ValueType>:: search(std::string key) const
     
 }
 
-template <typename ValueType>
-inline
-void RadixTree<ValueType>::addNode(std::string key, ValueType* value, Node*& target )
-{
-    target = new Node(key, value);
-    if (value == nullptr)
-        target->endOfString = false;
-}
+//template <typename ValueType>
+//inline
+//void RadixTree<ValueType>::addNode(std::string key, ValueType value, Node*& target )
+//{
+//    target = new Node(key, value);
+//    if (value == nullptr)
+//        target->endOfString = false;
+//}
 
 template <typename ValueType>
 inline
@@ -198,10 +207,10 @@ void RadixTree<ValueType>::deletionHelper(Node* nodeptr)
             deletionHelper(nodeptr->edges[i]);
         }
     }
-    if (nodeptr->v!=nullptr)
-    {
-        delete nodeptr->v;
-    }
+//    if (nodeptr->v!=nullptr)
+//    {
+//        delete nodeptr->v;
+//    }
     delete nodeptr;
 }
 

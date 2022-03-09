@@ -25,7 +25,7 @@ public:
 //    vector<string> FindMatchingMembers(const AttValPair& input) const;
 //    const PersonProfile* GetMemberByEmail(string email)const;
 private:
-    RadixTree<PersonProfile> emailToProfile;
+    RadixTree<PersonProfile*> emailToProfile;
     RadixTree<set<string>> attValPairsToEmail;
     
     vector<string> listEmails;
