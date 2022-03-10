@@ -18,39 +18,37 @@ bool MemberDatabase::LoadDatabase(string filename)
     string name = "";
     string email = "";
     int remainingAtt = 0;
-    set<string> setOfEmails;
     PersonProfile* profile;
 
     if ( !dataFile.is_open() )
         return false;
     while (std::getline(dataFile,dataString))
     {
-        setOfEmails.clear();
 //            cout << dataString << endl;
-        if (dataString.size() == 0)
+        if (dataString.empty())
         {
             name = "";
             email = "";
             remainingAtt = 0;
-            continue;
+//            continue;
         }
         if (name.empty())
         {
             name = dataString;
-            continue;
+//            continue;
         }
-        if (email.empty())
+        else if (email.empty())
         {
             email = dataString;
+
             if (emailToProfile.search(email) !=nullptr) //email already entered
                 return false;
             profile = new PersonProfile(name, email);
-            emailToProfile.insert(email, profile);
+//            emailToProfile.insert(email, profile);
             listEmails.push_back(email);
             m_numEmails++;
-            cerr << "profile: "  << m_numEmails << endl;
+//            cerr << "profile: "  << m_numEmails << endl;
 
-            continue;
         }
         else if (isdigit(dataString[0]))//attval pairs
         {
@@ -59,32 +57,34 @@ bool MemberDatabase::LoadDatabase(string filename)
         else if  (remainingAtt >0)
         {
             //update tree of aVpairs to emails
-            set<string>* emailSetptr  = attValPairsToEmail.search(dataString);
-            if ( emailSetptr != nullptr) //try tracking and finding with a set if tree is too slow
-            {
-                setOfEmails = *emailSetptr;
+            vector<string>* results = attValPairsToEmail.search(dataString);
+            if(results == nullptr) {
+                attValPairsToEmail.insert(dataString, {email});
+            } else {
+                results->push_back(email);
+                attValPairsToEmail.insert(dataString, *results);
             }
-            setOfEmails.insert(email);
-            attValPairsToEmail.insert(dataString, setOfEmails);
-            listAttValPairs.insert(dataString);
+
+//            listAttValPairs.insert(dataString);
             m_numAttValPairs++;
             
             //update tree with emails to personal profiles
-            PersonProfile* profile = *emailToProfile.search(email);
-            if (profile!=nullptr)
+            int ind  = dataString.find(',');
+            AttValPair newPair(dataString.substr(0,ind), dataString.substr(ind+1));
+            profile->AddAttValPair(newPair);
+            remainingAtt--;
+            if (remainingAtt ==0)
             {
-                int ind  = dataString.find(',');
-                AttValPair newPair(dataString.substr(0,ind), dataString.substr(ind+1));
-                profile->AddAttValPair(newPair);
-                
+                emailToProfile.insert(email, profile);
             }
         }
+        
     }
     dataFile.close();
     
     
     //for testing purposes
-    
+//
 //    int i,j ;
 //    AttValPair attvals;
 //    for (i = 0;i<m_numEmails;i++ )

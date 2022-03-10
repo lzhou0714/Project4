@@ -26,7 +26,7 @@ public:
 //    const PersonProfile* GetMemberByEmail(string email)const;
 private:
     RadixTree<PersonProfile*> emailToProfile;
-    RadixTree<set<string>> attValPairsToEmail;
+    RadixTree<vector<string>> attValPairsToEmail;
     
     vector<string> listEmails;
     set<string> listAttValPairs;

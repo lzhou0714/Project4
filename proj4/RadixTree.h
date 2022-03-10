@@ -1,3 +1,6 @@
+
+
+
 //
 //  RadixTree.h
 //  proj4
@@ -43,9 +46,9 @@ private:
         bool endOfString;
         Node* edges[128];
     };
-    
+
     Node* rootPtr;
-    
+
     void deletionHelper(Node* nodeptr);
     int firstDiff(std::string smallerStr, int a, std::string largerStr) const ;
 //    void addNode(std::string key,  ValueType value,Node*& target);
@@ -71,7 +74,7 @@ inline
 void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
 {
 //new///////////////////////////////////////////////////////
-    
+
     Node* currNode = rootPtr;
     rootPtr->endOfString = false;
     int breakInd = 0;
@@ -129,14 +132,14 @@ void RadixTree<ValueType>:: insert(std::string key, const ValueType& value)
                     prefix = new Node (prevValAtEdge.substr(0, breakInd));
                     prefix->endOfString = false;
                 }
-                
+
                 currNode->edges[prefix->k[0]] = prefix;
                 //add remaining of preexisting word
                 currNode = prefix;
                 breakPoint = prevValAtEdge[breakInd];
                 currNode->edges[breakPoint] = currEdge; //link remaining of edge to prefix
                 currEdge->k = prevValAtEdge.substr(breakInd); //update previous val
-                
+
                 //add remaining key
                 if (breakInd<currKeyLen)
                 {
@@ -163,26 +166,28 @@ ValueType* RadixTree<ValueType>:: search(std::string key) const
         std::string currKey = key;
         while (currKey.size()>0)
         {
-            
+
             if (currNode ==nullptr || currKey.size() < currNode->k.size())
                 break;
-            
+
             else if (currKey == currNode->k && currNode->endOfString ==true)
                 return &(currNode->v);
-            
+
             else
             {
                 currIndex = firstDiff(currKey, currKey.size(), currNode->k);
+                if  (currIndex<currNode->k.size())
+                    break;
                 currKey = currKey.substr(currIndex);
 
                 char checkPoint = currKey[0];
                 currNode = currNode->edges[checkPoint];
             }
-            
+
         }
-        
+
         return nullptr;
-    
+
 }
 
 //template <typename ValueType>
