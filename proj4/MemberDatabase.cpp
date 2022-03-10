@@ -23,6 +23,7 @@ bool MemberDatabase::LoadDatabase(string filename)
     string name = "";
     string email = "";
     int remainingAtt = 0;
+    set<string> avPairsTracker;
     PersonProfile* profile;
 
     if ( !dataFile.is_open() )
@@ -51,11 +52,11 @@ bool MemberDatabase::LoadDatabase(string filename)
             profile = new PersonProfile(name, email);
 //testing///////////////////////////////////////
 
-//            listEmails.push_back(email);
+            listEmails.push_back(email);
 //testing///////////////////////////////////////
 
             m_numEmails++;
-            cerr << "profile: "  << m_numEmails << endl;
+//            cerr << "profile: "  << m_numEmails << endl;
 
         }
         else if (isdigit(dataString[0]))//attval pairs
@@ -64,38 +65,50 @@ bool MemberDatabase::LoadDatabase(string filename)
         }
         else if  (remainingAtt >0)
         {
-            //update tree of aVpairs to emails
+
             vector<string>* results = attValPairsToEmail.search(dataString);
             if(results == nullptr) {
                 attValPairsToEmail.insert(dataString, {email});
+                avPairsTracker.insert(dataString);
+
             } else {
-                results->push_back(email);
-                attValPairsToEmail.insert(dataString, *results);
-            }
-//testing///////////////////////////////////////
+                if (avPairsTracker.find(dataString)  == avPairsTracker.end())
+                {
+                    avPairsTracker.insert(dataString);
 
-//            listAttValPairs.insert(dataString);
-//testing///////////////////////////////////////
-            m_numAttValPairs++;
-            
-            //update tree with emails to personal profiles
-            int ind  = dataString.find(',');
-            AttValPair newPair(dataString.substr(0,ind), dataString.substr(ind+1));
-            profile->AddAttValPair(newPair);
-            remainingAtt--;
-            if (remainingAtt ==0)
-            {
-                emailToProfile.insert(email, profile);
-                vectProfiles.push_back(profile);
+                    results->push_back(email);
+                    attValPairsToEmail.insert(dataString, *results);
+                }
 
             }
+
+//testing///////////////////////////////////////
+
+           listAttValPairs.insert(dataString);
+//testing///////////////////////////////////////
+           m_numAttValPairs++;
+                       
+                       //update tree with emails to personal profiles
+           int ind  = dataString.find(',');
+           AttValPair newPair(dataString.substr(0,ind), dataString.substr(ind+1));
+           profile->AddAttValPair(newPair);
+           remainingAtt--;
+           if (remainingAtt ==0)
+           {
+               emailToProfile.insert(email, profile);
+               vectProfiles.push_back(profile);
+               avPairsTracker.clear();
+
+           }
+
         }
         
     }
     dataFile.close();
+    cerr << "profiles loaded: " << m_numEmails << endl;
     
 //    for testing purposes
-//
+
 //    int i,j ;
 //    AttValPair attvals;
 //    for (i = 0;i<m_numEmails;i++ )
@@ -123,11 +136,30 @@ bool MemberDatabase::LoadDatabase(string filename)
 //        }
 //        cerr << endl;
 //    }
-//
+////
     return true;
 }
 //
-//const PersonProfile* MemberDataBase:: GetMemberByEmail(string email)const
-//{
-//
-//}
+const PersonProfile* MemberDatabase:: GetMemberByEmail(string email)const
+{
+    if (emailToProfile.search(email) == nullptr)
+        return nullptr;
+    else return *emailToProfile.search(email);
+}
+
+vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input) const
+{
+    string aVString  = input.attribute + "," + input.value;
+    vector<string>* emails = attValPairsToEmail.search(aVString);
+    if (emails != nullptr)
+    {
+        return *emails;
+    }
+    else
+    {
+        vector<string> empty;
+        return empty;
+    }
+
+        
+}

@@ -22,8 +22,8 @@ public:
     MemberDatabase(): m_numEmails(0), m_numAttValPairs(0) {};
     ~MemberDatabase();
     bool LoadDatabase(string filename);
-//    vector<string> FindMatchingMembers(const AttValPair& input) const;
-//    const PersonProfile* GetMemberByEmail(string email)const;
+    vector<string> FindMatchingMembers(const AttValPair& input) const;
+    const PersonProfile* GetMemberByEmail(string email)const;
 private:
     RadixTree<PersonProfile*> emailToProfile;
     RadixTree<vector<string>> attValPairsToEmail;

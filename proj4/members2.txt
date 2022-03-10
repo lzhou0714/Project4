@@ -6,6 +6,8 @@ hobby,canyoneering
 hobby,slacklining
 hobby,painting
 hobby,painting
+hobby,painting
+hobby,painting
 trait,sly
 trait,incurious
 trait,excitable
@@ -395,6 +397,8 @@ Thaddeus Vega
 ThadVega249@msn.com
 10
 job,reporter
+hobby,painting
+hobby,painting
 hobby,painting
 hobby,kayaking
 hobby,photography
