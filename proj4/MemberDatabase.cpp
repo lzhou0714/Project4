@@ -9,6 +9,11 @@
 #include <string>
 
 #include "MemberDatabase.h"
+MemberDatabase::~MemberDatabase()
+{
+    for (int i =0;i<vectProfiles.size();i++)
+        delete vectProfiles[i];
+}
 bool MemberDatabase::LoadDatabase(string filename)
 {
     std::ifstream dataFile;
@@ -44,10 +49,13 @@ bool MemberDatabase::LoadDatabase(string filename)
             if (emailToProfile.search(email) !=nullptr) //email already entered
                 return false;
             profile = new PersonProfile(name, email);
-//            emailToProfile.insert(email, profile);
-            listEmails.push_back(email);
+//testing///////////////////////////////////////
+
+//            listEmails.push_back(email);
+//testing///////////////////////////////////////
+
             m_numEmails++;
-//            cerr << "profile: "  << m_numEmails << endl;
+            cerr << "profile: "  << m_numEmails << endl;
 
         }
         else if (isdigit(dataString[0]))//attval pairs
@@ -64,8 +72,10 @@ bool MemberDatabase::LoadDatabase(string filename)
                 results->push_back(email);
                 attValPairsToEmail.insert(dataString, *results);
             }
+//testing///////////////////////////////////////
 
 //            listAttValPairs.insert(dataString);
+//testing///////////////////////////////////////
             m_numAttValPairs++;
             
             //update tree with emails to personal profiles
@@ -76,14 +86,15 @@ bool MemberDatabase::LoadDatabase(string filename)
             if (remainingAtt ==0)
             {
                 emailToProfile.insert(email, profile);
+                vectProfiles.push_back(profile);
+
             }
         }
         
     }
     dataFile.close();
     
-    
-    //for testing purposes
+//    for testing purposes
 //
 //    int i,j ;
 //    AttValPair attvals;
@@ -104,14 +115,19 @@ bool MemberDatabase::LoadDatabase(string filename)
 //    for (auto it = listAttValPairs.begin(); it != listAttValPairs.end();it++)
 //    {
 //        cerr << *it << endl;
-//        setOfEmails = *attValPairsToEmail.search(*it);
-//        for (auto it: setOfEmails)
+//        vector<string> emails = *attValPairsToEmail.search(*it);
+//        for (auto it: emails)
 //        {
 //            cerr <<*(&it);
 //            cerr <<endl;
 //        }
 //        cerr << endl;
 //    }
-
+//
     return true;
 }
+//
+//const PersonProfile* MemberDataBase:: GetMemberByEmail(string email)const
+//{
+//
+//}

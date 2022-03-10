@@ -20,7 +20,7 @@ class MemberDatabase
 {
 public:
     MemberDatabase(): m_numEmails(0), m_numAttValPairs(0) {};
-    ~MemberDatabase() {};
+    ~MemberDatabase();
     bool LoadDatabase(string filename);
 //    vector<string> FindMatchingMembers(const AttValPair& input) const;
 //    const PersonProfile* GetMemberByEmail(string email)const;
@@ -28,6 +28,7 @@ private:
     RadixTree<PersonProfile*> emailToProfile;
     RadixTree<vector<string>> attValPairsToEmail;
     
+    vector<PersonProfile*> vectProfiles;
     vector<string> listEmails;
     set<string> listAttValPairs;
     int m_numEmails;
