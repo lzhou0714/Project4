@@ -1,16 +1,16 @@
 Abdullah Fowler
 AbFow2483@charter.net
-13
+15
 job,architect
 hobby,canyoneering
 hobby,slacklining
 hobby,painting
 hobby,painting
-hobby,painting
-hobby,painting
 trait,sly
 trait,incurious
 trait,excitable
+hobby,painting
+hobby,painting
 trait,unself-critical
 trait,vacuous
 trait,discouraging

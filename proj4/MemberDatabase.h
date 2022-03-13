@@ -34,9 +34,6 @@ private:
     int m_numEmails;
     int m_numAttValPairs;
     
-    
-    
-    
 };
 
 

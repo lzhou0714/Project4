@@ -36,12 +36,10 @@ bool MemberDatabase::LoadDatabase(string filename)
             name = "";
             email = "";
             remainingAtt = 0;
-//            continue;
         }
         if (name.empty())
         {
             name = dataString;
-//            continue;
         }
         else if (email.empty())
         {
@@ -50,14 +48,13 @@ bool MemberDatabase::LoadDatabase(string filename)
             if (emailToProfile.search(email) !=nullptr) //email already entered
                 return false;
             profile = new PersonProfile(name, email);
+            
 //testing///////////////////////////////////////
-
             listEmails.push_back(email);
 //testing///////////////////////////////////////
-
+            
             m_numEmails++;
 //            cerr << "profile: "  << m_numEmails << endl;
-
         }
         else if (isdigit(dataString[0]))//attval pairs
         {
@@ -72,6 +69,7 @@ bool MemberDatabase::LoadDatabase(string filename)
                 avPairsTracker.insert(dataString);
 
             } else {
+//                if (find(results->begin(), results->end(), email) ==results->end())
                 if (avPairsTracker.find(dataString)  == avPairsTracker.end())
                 {
                     avPairsTracker.insert(dataString);
@@ -83,12 +81,12 @@ bool MemberDatabase::LoadDatabase(string filename)
             }
 
 //testing///////////////////////////////////////
-
-           listAttValPairs.insert(dataString);
+//           listAttValPairs.insert(dataString);
 //testing///////////////////////////////////////
+            
            m_numAttValPairs++;
                        
-                       //update tree with emails to personal profiles
+           //update tree with emails to personal profiles
            int ind  = dataString.find(',');
            AttValPair newPair(dataString.substr(0,ind), dataString.substr(ind+1));
            profile->AddAttValPair(newPair);
