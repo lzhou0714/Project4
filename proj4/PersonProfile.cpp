@@ -8,10 +8,6 @@
 #include "PersonProfile.h"
 #include "RadixTree.h"
 
-PersonProfile:: ~PersonProfile()
-{
-
-}
 void PersonProfile:: AddAttValPair(const AttValPair& attval)
 {
     set<string>* currVals = aVPairs.search(attval.attribute);

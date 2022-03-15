@@ -18,11 +18,20 @@ using namespace std;
 class MatchMaker
 {
 public:
-    MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at) {};
+    MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at):
+    database(&mdb), translations(&at) {} //THIS IS DEFINITELY WRONG
+    
+    
 //    ~MatchMaker();
     vector<EmailCount> IdentifyRankedMatches(string email, int threshold) const;
 private:
-    MemberDatabase database;
+//    MemberDatabase* database;
+//    AttributeTranslator* translations;
+    vector<EmailCount> getCompatiblePeople(const set<string> compatibleAVPairs, int threshold) const;
+    static bool sortPeople(const EmailCount& a, const EmailCount &b);
+    const MemberDatabase* database;
+    const AttributeTranslator* translations;
+    
     
 };
 

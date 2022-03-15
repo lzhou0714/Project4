@@ -158,7 +158,10 @@ template <typename ValueType>
 inline
 ValueType* RadixTree<ValueType>:: search(std::string key) const
 {
-
+    if (rootPtr->endOfString ==true)
+    {
+        return nullptr;
+    }
     Node* currNode = rootPtr->edges[key[0]];
     if (currNode == nullptr)
         return nullptr;
@@ -212,10 +215,6 @@ void RadixTree<ValueType>::deletionHelper(Node* nodeptr)
             deletionHelper(nodeptr->edges[i]);
         }
     }
-//    if (nodeptr->v!=nullptr)
-//    {
-//        delete nodeptr->v;
-//    }
     delete nodeptr;
 }
 

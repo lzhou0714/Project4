@@ -20,7 +20,6 @@ class AttributeTranslator
 {
 public:
     AttributeTranslator() {};
-//    ~AttributeTranslator();
     bool Load(string filename);
     vector<AttValPair> FindCompatibleAttValPairs( const AttValPair& source) const; //deal with repeats when you are getting them
 private:

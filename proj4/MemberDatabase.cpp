@@ -69,7 +69,6 @@ bool MemberDatabase::LoadDatabase(string filename)
                 avPairsTracker.insert(dataString);
 
             } else {
-//                if (find(results->begin(), results->end(), email) ==results->end())
                 if (avPairsTracker.find(dataString)  == avPairsTracker.end())
                 {
                     avPairsTracker.insert(dataString);
@@ -147,6 +146,7 @@ const PersonProfile* MemberDatabase:: GetMemberByEmail(string email)const
 
 vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input) const
 {
+//    cerr << "destructing data base" << endl;
     string aVString  = input.attribute + "," + input.value;
     vector<string>* emails = attValPairsToEmail.search(aVString);
     if (emails != nullptr)
